@@ -1,9 +1,3 @@
-/*
-player.java - edited by george
-edited to getWepName, getWepCode, setWep (lines 320 to 340)
-note the different parameters being passed
-*/
-
 import java.util.Scanner;
 import java.io.IOException;
 public class Player extends Character{
