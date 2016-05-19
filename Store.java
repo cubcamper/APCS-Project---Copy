@@ -7,10 +7,7 @@ public class Store{
    private String name = "";
    private double dmg = 0;
    private double armour = 0;
-   private boolean magic = false;
-   private boolean fire = false;
-   private boolean ice = false;
-   private boolean electric = false;
+   private String spclPwr = "none";
    private int price = 0;
    private Random r = new Random();
    private int cost = 0;
@@ -99,10 +96,7 @@ public class Store{
          name = w[1].getName();
          dmg = w[1].getDmg();
          armour = w[1].getArmour();
-         magic = w[1].getMagic();
-         fire = w[1].getFire();
-         ice = w[1].getIce();
-         electric = w[1].getElectric();
+         spclPwr = w[1].getSpclPwr();
       }
    }
    public int getCost(){
@@ -120,18 +114,9 @@ public class Store{
    public double getArmour(){
       return armour;
    }
-   public boolean getMagic(){
-      return magic;
-   }
-   public boolean getFire(){
-      return fire;
-   }
-   public boolean getIce(){
-      return ice;
-   }
-   public boolean getElectric(){
-      return electric;
-   }
+   public char getSpclPwr(){
+      return spclPwr;
+   {
    public boolean getPurchase(){
       return purchase;
    }

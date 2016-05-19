@@ -1,3 +1,9 @@
+/*
+player.java - edited by george
+edited to getWepName, getWepCode, setWep (lines 320 to 340)
+note the different parameters being passed
+*/
+
 import java.util.Scanner;
 import java.io.IOException;
 public class Player extends Character{
@@ -32,7 +38,7 @@ public class Player extends Character{
       if(race.equals("HUMAN")){
          this.race = 1;
          this.raceS = "Human";
-         this.maxhp = 20;
+         this.maxhp = (this.race+1)*10;
          this.xpmult = 1.5;
          this.dmgred = 0;
          this.str = 2;
@@ -43,7 +49,7 @@ public class Player extends Character{
       else if(race.equals("ORC")){
          this.race = 2;
          this.raceS = "Orc";
-         this.maxhp = 30;
+         this.maxhp = (this.race+1)*10;
          this.xpmult = .8;
          this.dmgred = .75;
          this.str = 4;
@@ -54,7 +60,7 @@ public class Player extends Character{
       else if(race.equals("ELF")){
          this.race = 3;
          this.raceS = "Elf";
-         this.maxhp = 10;
+         this.maxhp = (this.race-2)*10;
          this.xpmult = 1.75;
          this.dmgred = -.5;
          this.dtx = 3;
@@ -92,24 +98,15 @@ public class Player extends Character{
       this.dodge = dodge;
       this. money = money;
       this.xp = xp;
-      w = new Weapon(wepcode1, true);
-      this.itemcode[0] = w.getCode();
-      this.wepname[0] = w.getName();
-      this.wepdmg[0] = w.getDmg();
-      this.weparmour[0] = w.getArmour();
-      this.magic[0] = w.getMagic();
-      this.fire[0] = w.getFire();
-      this.ice[0] = w.getIce();
-      this.electric[0] = w.getElectric();
-      w = new Weapon(wepcode2, true);
-      this.itemcode[1] = w.getCode();
-      this.wepname[1] = w.getName();
-      this.wepdmg[1] = w.getDmg();
-      this.weparmour[1] = w.getArmour();
-      this.magic[1] = w.getMagic();
-      this.fire[1] = w.getFire();
-      this.ice[1] = w.getIce();
-      this.electric[1] = w.getElectric();
+      String[] anArr = ["wepcode1", "wepcode2"];
+         for (int i=0; i<2; i++) {
+         w = new Weapon(anArr[i], true);
+         this.itemcode[i] = w.getCode();
+         this.wepname[i] = w.getName();
+         this.wepdmg[i] = w.getDmg();
+         this.weparmour[i] = w.getArmour();
+         this.spclPwr[i] = w.getSpclPwr();
+      }
       for(int i = 1; i <= this.lvl; i++){
          this.xpmax = this.xpmax+i*5;
       }
@@ -153,6 +150,7 @@ public class Player extends Character{
          String choice = in.nextLine();
          boolean finish = false;
          while(finish = false){
+         
             if(choice.toUpperCase().equals("HP")){
                maxhp++;
                finish = true;
@@ -170,6 +168,7 @@ public class Player extends Character{
                finish = true;
             }
             choice = in.nextLine();
+            
          }
       }
             
@@ -317,48 +316,30 @@ public class Player extends Character{
    public double getDodge(){
       return dodge;
    }
-   public String getWepcode1(){
-      return itemcode[0];
-   }
-   public String getWepcode2(){
-      return itemcode[1];
+   public String getWepcode(int z){    //z will be 0 or 1, depending which wepcode u want, consolidating gwc0() and gwc1()
+      return itemcode[z];
    }
    
    public String[] itemcode = {"1051", "1051"};
    public String[] wepname = {"Iron Knife of Immenent Dying", "Iron Knife of Immenent Dying"};
    public double[] wepdmg = {2.0, 2.0};
    public double[] weparmour = {0.3, 0.3};
-   public boolean[] magic = {false, false};
-   public boolean[] fire = {false, false};
-   public boolean[] ice = {false, false};
-   public boolean[] electric = {false, false};
+   public char[] spclPwr = {'n', 'n'};
    
-   public void setWeapon1(String code, String name, double dmg, double armour, boolean magic, boolean fire, boolean ice, boolean electric){
-      this.itemcode[0] = code;
-      this.wepname[0] = name;
-      this.wepdmg[0] = dmg;
-      this.weparmour[0] = armour;
-      this.magic[0] = magic;
-      this.fire[0] = fire;
-      this.ice[0] = ice;
-      this.electric[0] = electric;
+   
+   
+   public void setWeapon(Weapon w, int i){      //i will be 0 or 1, depending which weapon u want to set
+      this.itemcode[i] = w.getCode();
+      this.wepname[i] = w.getName();
+      this.wepdmg[i] = w.getDmg();
+      this.weparmour[i] = w.getArmour();
+      this.spclPwr[i] = w.getSpclPwr();
    }
-   public void setWeapon2(String code, String name, double dmg, double armour, boolean magic, boolean fire, boolean ice, boolean electric){
-      this.itemcode[1] = code;
-      this.wepname[1] = name;
-      this.wepdmg[1] = dmg;
-      this.weparmour[1] = armour;
-      this.magic[1] = magic;
-      this.fire[1] = fire;
-      this.ice[1] = ice;
-      this.electric[1] = electric;
+   
+   public String getWepName(int q){    //q will be zero or 1, depending which WepName u want, consolidating gwc0() and gwc1()
+      return wepname[q];
    }
-   public String getWepName1(){
-      return wepname[0];
-   }
-   public String getWepName2(){
-      return wepname[1];
-   }
+   
    public double damageMod(int lvl){
       double mod = 0;
       for(int i = 0; i < this.str; i++){
